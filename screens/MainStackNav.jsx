@@ -1,20 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator } from '@react-navigation/stack';
 import StatesDetailScreen from './StatesDetailScreen';
 import StatesScreen from './StatesScreen';
 import DestinationScreen from './DestinationScreen';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import CustomHeaderButton from '../components/HeaderButton';
 import Map from './Map';
+import HomeScreen from './HomeScreen';
 
 const Stack = createStackNavigator();
 
-const HomeScreen = ({ navigation }) => {
+const MainStackNav = ({ navigation }) => {
   return (
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#277c41',
+          backgroundColor: '#082032',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -23,20 +24,27 @@ const HomeScreen = ({ navigation }) => {
       }}
     >
       <Stack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={({ route, navigation }) => ({
+          headerLeft: () => (
+            <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+              <Item
+                title="Menu"
+                iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
+                onPress={() => {
+                  navigation.toggleDrawer();
+                }}
+              />
+            </HeaderButtons>
+          ),
+          title: 'Welcome to Tour9ja',
+        })}
+      />
+      <Stack.Screen
         name="States"
         component={StatesScreen}
-        options={() => ({
-          headerLeft: () => (
-            <Ionicons
-              title="list"
-              name="ios-list"
-              color="white"
-              size={30}
-              onPress={() => {
-                navigation.toggleDrawer();
-              }}
-            />
-          ),
+        options={({}) => ({
           title: 'States',
         })}
       />
@@ -63,4 +71,4 @@ const HomeScreen = ({ navigation }) => {
   );
 };
 
-export default HomeScreen;
+export default MainStackNav;

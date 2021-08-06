@@ -132,7 +132,7 @@ const FavoriteNav = () => {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#277c41',
+          backgroundColor: '#082032',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -145,7 +145,7 @@ const FavoriteNav = () => {
         component={Favorites}
         options={() => ({
           headerStyle: {
-            backgroundColor: '#277c41',
+            backgroundColor: '#082032',
           },
         })}
       />

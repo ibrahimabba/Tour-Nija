@@ -34,6 +34,7 @@
     "react-native-star-rating": "^1.1.0",
     "react-native-svg": "^12.1.0",
     "react-native-web": "~0.11.7",
+    "react-navigation-header-buttons": "^4.0.2",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"

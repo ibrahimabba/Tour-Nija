@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { Button, View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import HomeScreen from '../screens/HomeScreen';
+import MainStackNav from '../screens/MainStackNav';
 import FavoriteNav from '../screens/FavoriteNav';
-import { Ionicons } from '@expo/vector-icons';
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-} from '@react-navigation/drawer';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import Authenticate from '../user/authenticate';
 import WelcomeScreen from '../components/WelcomeScreen';
@@ -22,9 +18,9 @@ const Drawer = createDrawerNavigator();
 const DrawerNavigator = (props) => {
   const token = useSelector((state) => state.authReducer.token);
   const dispatch = useDispatch();
-  if (token == null) {
-    return <Authentication />;
-  }
+  // if (token == null) {
+  //   return <Authentication />;
+  // }
 
   return (
     <Drawer.Navigator
@@ -32,10 +28,7 @@ const DrawerNavigator = (props) => {
         <DrawerContentScrollView {...props}>
           <DrawerItemList {...props} />
           <View style={{ flex: 1, padding: 50 }}>
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onPress={() => dispatch(logout())}
-            >
+            <TouchableOpacity activeOpacity={0.6} onPress={() => dispatch(logout())}>
               <View style={styles.button}>
                 <Text style={styles.buttonText}>Logout</Text>
               </View>
@@ -52,12 +45,12 @@ const DrawerNavigator = (props) => {
           } else if (route.name === 'Home') {
             iconName = 'md-home';
           }
-          return <Ionicons name={iconName} size={25} color='#277c41' />;
+          return <Ionicons name={iconName} size={25} color="#277c41" />;
         },
       })}
     >
-      <Drawer.Screen name='Home' component={WelcomeScreen} />
-      <Drawer.Screen name='Places' component={TabNavigator} />
+      <Drawer.Screen name="Home" component={WelcomeScreen} />
+      <Drawer.Screen name="Places" component={TabNavigator} />
     </Drawer.Navigator>
   );
 };
@@ -67,25 +60,20 @@ const TabNavigator = (props) => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-
-          if (route.name === 'Places') {
-            iconName = 'ios-pin';
+          if (route.name === 'Home') {
+            return <AntDesign name="home" size={24} color={color} />;
           } else if (route.name === 'Favorite') {
-            iconName = 'ios-heart';
+            return <Ionicons name={'ios-heart'} size={25} color={color} />;
           }
-
-          // You can return any component that you like here!
-          return <Ionicons name={iconName} size={25} color={color} />;
         },
       })}
       shifting={true}
       // activeColor='#f0edf6'
       // inactiveColor='#3e2465'
-      barStyle={{ backgroundColor: '#277c41' }}
+      barStyle={{ backgroundColor: '#082032' }}
     >
-      <Tab.Screen name='Places' component={HomeScreen} />
-      <Tab.Screen name='Favorite' component={FavoriteNav} />
+      <Tab.Screen name="Home" component={MainStackNav} />
+      <Tab.Screen name="Favorite" component={FavoriteNav} />
     </Tab.Navigator>
   );
 };
@@ -103,7 +91,7 @@ const Authentication = () => {
         },
       }}
     >
-      <Stack.Screen name='Welcome' component={Authenticate} />
+      <Stack.Screen name="Welcome" component={Authenticate} />
     </Stack.Navigator>
   );
 };
